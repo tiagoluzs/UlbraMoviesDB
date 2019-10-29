@@ -30,13 +30,7 @@ public class TopratedFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(TopratedViewModel.class);
         View root = inflater.inflate(R.layout.fragment_toprated, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 

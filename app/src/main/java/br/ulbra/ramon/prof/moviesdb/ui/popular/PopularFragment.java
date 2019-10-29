@@ -30,13 +30,7 @@ public class PopularFragment extends Fragment {
         dashboardViewModel =
                 ViewModelProviders.of(this).get(PopularViewModel.class);
         View root = inflater.inflate(R.layout.fragment_popular, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 
