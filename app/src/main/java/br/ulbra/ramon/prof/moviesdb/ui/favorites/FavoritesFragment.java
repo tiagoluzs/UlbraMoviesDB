@@ -65,7 +65,7 @@ public class FavoritesFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... strings) {
 
-            MovieService service = new MovieService();
+            MovieService service = new MovieService(getActivity().getApplicationContext());
             lista = service.getFavorites();
 
 
@@ -77,11 +77,12 @@ public class FavoritesFragment extends Fragment {
         protected void onPostExecute(Integer integer) {
             favorites = lista;
             if(favorites == null || favorites.size() == 0) {
-                Toast.makeText(getContext(),"Sem internet.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),getResources().getText(R.string.sem_favoritos),Toast.LENGTH_LONG).show();
+                adapter.setItens(new ArrayList<Movie>());
             } else {
                 adapter.setItens(favorites);
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
         }
     }
 

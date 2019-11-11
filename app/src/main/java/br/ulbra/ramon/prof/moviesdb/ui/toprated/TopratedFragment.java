@@ -65,7 +65,7 @@ public class TopratedFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... strings) {
 
-            MovieService service = new MovieService();
+            MovieService service = new MovieService(getActivity().getApplicationContext());
             lista = service.getToprated();
 
 

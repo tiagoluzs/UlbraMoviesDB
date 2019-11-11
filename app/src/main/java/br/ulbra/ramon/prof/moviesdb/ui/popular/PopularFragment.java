@@ -57,7 +57,7 @@ public class PopularFragment extends Fragment {
         @Override
         protected Integer doInBackground(String... strings) {
 
-            MovieService service = new MovieService();
+            MovieService service = new MovieService(getActivity().getApplicationContext());
             lista = service.getPopular();
 
 
@@ -70,10 +70,11 @@ public class PopularFragment extends Fragment {
             popular = lista;
             if(popular == null || popular.size() == 0) {
                 Toast.makeText(getContext(),"Sem internet.",Toast.LENGTH_LONG).show();
+                adapter.setItens(new ArrayList<Movie>());
             } else {
                 adapter.setItens(popular);
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
         }
     }
 

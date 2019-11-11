@@ -1,6 +1,9 @@
 package br.ulbra.ramon.prof.moviesdb;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,6 +24,14 @@ public class MovieService {
     private String METHOD_GET_POPULAR = "/movie/popular";
     private String METHOD_GET_TOPRATED = "/movie/top_rated";
     private String METHOD_GET_DETAIL = "/movie/";
+
+    private SQLiteDatabase db;
+    private CriarBanco banco;
+
+
+    public MovieService(Context context) {
+        banco = new CriarBanco(context);
+    }
 
     private String call(String method) throws Exception {
         try {
@@ -88,19 +99,64 @@ public class MovieService {
         return lista;
     }
 
+    public boolean isFavorite(Movie movie) {
+        db = banco.getReadableDatabase();
+        Cursor cursor;
+        String[] campos =  {CriarBanco.ID};
+
+        cursor = db.query(banco.TABELA, campos, "codigo = " + movie.getId(), null, null, null, null, null);
+
+        return cursor.moveToFirst();
+
+    }
+
+    public void addFavorite(Movie movie) {
+        db = banco.getWritableDatabase();
+        ContentValues valores;
+        long resultado;
+        valores = new ContentValues();
+        valores.put(CriarBanco.CODIGO, movie.id);
+        valores.put(CriarBanco.TITULO, movie.title);
+        valores.put(CriarBanco.DESCRICAO, movie.overview);
+        valores.put(CriarBanco.POPULARIDADE, movie.popularity);
+        valores.put(CriarBanco.POSTER, movie.thumb);
+        resultado = db.insert(CriarBanco.TABELA, null, valores);
+        db.close();
+    }
+
+    public void deleteFavorite(Movie movie) {
+        db = banco.getWritableDatabase();
+        db.delete(CriarBanco.TABELA,"codigo = " + movie.getId(),null);
+        db.close();
+    }
+
     public ArrayList<Movie>  getFavorites() {
         ArrayList<Movie> lista = new ArrayList<>();
+        Cursor cursor;
+        String[] campos =  {CriarBanco.ID, CriarBanco.CODIGO,CriarBanco.TITULO, CriarBanco.DESCRICAO, CriarBanco.POPULARIDADE, CriarBanco.POSTER};
+        db = banco.getReadableDatabase();
+        cursor = db.query(banco.TABELA, campos, null, null, null, null, null, null);
+        boolean hasItens = cursor.moveToFirst();
+        if(cursor!=null && hasItens){
+            do {
+
+                lista.add(
+                    new Movie(
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(5),
+                        cursor.getDouble(4)
+                    )
+                );
+
+            }while(cursor.moveToNext());
+        }
+
+
+        db.close();
 
         return lista;
     }
-
-    public Movie getDetail(int id) {
-        Movie movie = new Movie();
-
-
-
-        return movie;
-    }
-
 
 }
