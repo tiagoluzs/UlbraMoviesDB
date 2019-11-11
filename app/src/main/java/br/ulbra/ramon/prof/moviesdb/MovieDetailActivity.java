@@ -37,6 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         descricao = findViewById(R.id.descricao);
         image = findViewById(R.id.imagem);
         btnFavoritos = findViewById(R.id.btnFavoritos);
+        btnSimilares = findViewById(R.id.btnSimilares);
         movieService = new MovieService(getApplicationContext());
 
         movie = (Movie)getIntent().getExtras().getSerializable("movie");
