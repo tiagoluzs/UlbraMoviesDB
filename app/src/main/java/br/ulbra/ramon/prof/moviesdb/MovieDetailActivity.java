@@ -77,6 +77,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        setTitle(getResources().getString(R.string.filme) + ": " + movie.getTitle());
+
         String basePath = "https://image.tmdb.org/t/p/w300_and_h450_bestv2";
         titulo.setText(movie.getTitle());
         codigo.setText(String.valueOf(movie.getId()));

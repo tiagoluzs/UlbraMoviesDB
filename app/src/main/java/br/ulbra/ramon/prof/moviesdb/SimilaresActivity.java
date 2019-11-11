@@ -76,6 +76,9 @@ public class SimilaresActivity extends AppCompatActivity {
         super.onResume();
         movie = (Movie)getIntent().getExtras().getSerializable("movie");
 
+        setTitle(getResources().getString(R.string.similares) + ": " + movie.getTitle());
+
+
         MyAsyncTask task = new MyAsyncTask();
         task.execute("");
 

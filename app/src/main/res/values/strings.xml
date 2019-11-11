@@ -8,5 +8,7 @@
     <string name="add_favoritos">Adicionar aos favoritos</string>
     <string name="del_favoritos">Remover dos favoritos</string>
     <string name="sem_favoritos">Sem favoritos adicionados.</string>
-    <string name="similares">Ver similares</string>
+    <string name="ver_similares">Ver similares</string>
+    <string name="similares">Similares</string>
+    <string name="filme">Filme</string>
 </resources>
