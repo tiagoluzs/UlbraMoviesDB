@@ -24,6 +24,7 @@ public class MovieService {
     private String METHOD_GET_POPULAR = "/movie/popular";
     private String METHOD_GET_TOPRATED = "/movie/top_rated";
     private String METHOD_GET_DETAIL = "/movie/";
+    private String METHOD_GET_SIMILARES = "/movie/";
 
     private SQLiteDatabase db;
     private CriarBanco banco;
@@ -98,6 +99,37 @@ public class MovieService {
         }
         return lista;
     }
+
+    public ArrayList<Movie> getSimilares(Movie movie) {
+        Log.d("getSimilares()","executing ...");
+        ArrayList<Movie> lista = new ArrayList<>();
+        try {
+            String method = this.METHOD_GET_SIMILARES + movie.getId()+ "/similar";
+            Log.d("getSimilares()","method: " + method);
+            String json_string = this.call(method);
+            Log.d("getSimilares()",json_string);
+            JSONObject json = new JSONObject(json_string);
+            JSONArray results = json.getJSONArray("results");
+            int count = results.length();
+            for(int i = 0; i < count; i++) {
+                JSONObject obj = results.getJSONObject(i);
+                Movie m = new Movie(
+                        obj.getInt("id"),
+                        obj.getString("title"),
+                        obj.getString("overview"),
+                        obj.getString("poster_path"),
+                        obj.getDouble("popularity")
+                );
+                lista.add(m);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+
 
     public boolean isFavorite(Movie movie) {
         db = banco.getReadableDatabase();

@@ -59,8 +59,6 @@ public class PopularFragment extends Fragment {
 
             MovieService service = new MovieService(getActivity().getApplicationContext());
             lista = service.getPopular();
-
-
             Log.d("MainActivity","API Popular received");
             return 0;
         }
