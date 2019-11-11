@@ -1,11 +1,13 @@
 package br.ulbra.ramon.prof.moviesdb.ui.popular;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import java.util.ArrayList;
 
 import br.ulbra.ramon.prof.moviesdb.Movie;
+import br.ulbra.ramon.prof.moviesdb.MovieDetailActivity;
 import br.ulbra.ramon.prof.moviesdb.MovieService;
 import br.ulbra.ramon.prof.moviesdb.R;
 import br.ulbra.ramon.prof.moviesdb.MovieListAdapter;
@@ -37,7 +40,15 @@ public class PopularFragment extends Fragment {
         listView = root.findViewById(R.id.lista);
         adapter = new MovieListAdapter(popular,getActivity());
         listView.setAdapter(adapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Movie movie = (Movie)((MovieListAdapter)adapterView.getAdapter()).getItem(i);
+                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                intent.putExtra("movie",movie);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 

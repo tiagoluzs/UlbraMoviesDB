@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MoviesDB</string>
-    <string name="title_popular">Popular</string>
-    <string name="title_toprated">Top Rated</string>
-    <string name="title_favorites">Favorites</string>
+    <string name="title_popular">Populares</string>
+    <string name="title_toprated">Melhor avaliados</string>
+    <string name="title_favorites">Favoritos</string>
+    <string name="movie_details">Detalhes do filme</string>
+    <string name="popularity">Popularidade</string>
 </resources>
