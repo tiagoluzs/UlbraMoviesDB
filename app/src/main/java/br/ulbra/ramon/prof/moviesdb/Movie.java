@@ -9,20 +9,22 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
-    String id;
+    int id;
     String title;
     String overview;
     String thumb;
+    double popularity;
 
     public Movie(){
 
     }
 
-    public Movie(String id, String title, String overview, String thumb) {
+    public Movie(int id, String title, String overview, String thumb,double popularity) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.thumb = thumb;
+        this.popularity = popularity;
     }
 
     @NonNull
@@ -33,8 +35,12 @@ public class Movie implements Serializable {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return obj instanceof Movie && ((Movie)obj).id.equals(this.id);
+        return obj instanceof Movie && ((Movie)obj).id == this.id;
     }
+
+    public int getId() { return this.id; }
+    public void setId(int id) { this.id = id;}
+
 
     public String getTitle() {
         return title;
@@ -58,5 +64,13 @@ public class Movie implements Serializable {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setThumb(double pop) {
+        this.popularity = pop;
     }
 }

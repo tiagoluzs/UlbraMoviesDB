@@ -23,11 +23,11 @@ import br.ulbra.ramon.prof.moviesdb.R;
 public class FavoritesFragment extends Fragment {
 
     ArrayList<Movie> favorites;
-    private FavoritesViewModel notificationsViewModel;
+    private FavoritesViewModel favoritesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
+        favoritesViewModel =
                 ViewModelProviders.of(this).get(FavoritesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_favorites, container, false);
 
